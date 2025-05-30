@@ -21,6 +21,17 @@ This action uses [**update-pre-commit**](https://github.com/tagdots/update-pre-c
 
 ## 🔍 How to use update-pre-commit-action?
 
+### Use Case 1️⃣ - summary descriptions
+**update-pre-commit-action** in the workflow below will:
+
+* run on a scheduled interval - every day at 5:30 pm UTC  (`- cron: '30 17 * * *'`)
+* have a job that needs write permissions on `contents: write` and `pull-requests: write`
+* use pinned full commit hash from [the latest release](https://github.com/tagdots/update-pre-commit-action/releases)
+* update `.pre-commit-config.yaml` when new revs become available (`dry-run: false`)
+* open a pull request when new revs become available (`open-pr: true`)
+
+<br>
+
 ### Use Case 1️⃣ - example workflow
 ```
 name: update-pre-commit-action
@@ -64,14 +75,15 @@ jobs:
 
 <br>
 
-### Use Case 1️⃣ - summary descriptions
-The above GitHub action workflow will:
+### Use Case 2️⃣ - summary descriptions
+**update-pre-commit-action** in the workflow below will:
 
 * run on a scheduled interval - every day at 5:30 pm UTC  (`- cron: '30 17 * * *'`)
-* have a job that needs write permissions on `contents: write` and `pull-requests: write`
 * use pinned full commit hash from [the latest release](https://github.com/tagdots/update-pre-commit-action/releases)
-* update `.pre-commit-config.yaml` when update(s) is available (`dry-run: false`)
-* open a pull request when update(s) is available (`open-pr: true`)
+* update `.pre-commit-config.yaml` when new revs become available (`dry-run: false`)
+* _NOT_ open a pull request when new revs become available (`open-pr: false`)
+
+You will review the workflow results, cherry-pick updates, and open a pull-request yourself.
 
 <br>
 
@@ -115,18 +127,12 @@ jobs:
 
 <br>
 
-### Use Case 2️⃣ - summary descriptions
-The above GitHub action workflow will:
-
-* run on a scheduled interval - every day at 5:30 pm UTC  (`- cron: '30 17 * * *'`)
-* use pinned full commit hash from [the latest release](https://github.com/tagdots/update-pre-commit-action/releases)
-* update `.pre-commit-config.yaml` when updates become available (`dry-run: false`)
-* _NOT_ open a pull request when update(s) is available (`open-pr: false`)
-
-You will review the workflow results, cherry-pick updates, and open a pull-request yourself.
-
-<br>
-
 ## 😕  Troubleshooting
 
 We are here to help - open an [issue](https://github.com/tagdots/update-pre-commit-action/issues)
+
+<br>
+
+## 📖 License
+
+[MIT License](https://github.com/tagdots/update-pre-commit-action/blob/main/LICENSE).
