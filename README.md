@@ -3,11 +3,18 @@
 [![OpenSSF Best Practices](https://www.bestpractices.dev/projects/10601/badge)](https://www.bestpractices.dev/projects/10601) [![CI](https://github.com/tagdots/update-pre-commit/actions/workflows/ci.yaml/badge.svg)](https://github.com/tagdots/update-pre-commit/actions/workflows/ci.yaml) [![Code Coverage](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/tagdots/update-pre-commit/refs/heads/badge/coverage.json)](https://github.com/tagdots/update-pre-commit/actions/workflows/cron-coverage.yaml)
 
 
-This action uses [**update-pre-commit**](https://github.com/tagdots/update-pre-commit) to keep your `pre-commit` configuration up to date and
+This action keeps your `pre-commit` hooks up to date and creates pull request.
 
-1. reduces your supply chain risks by following best practices in its development and operation.
-1. simplifies your change management process by having both _updates_ and _pull request_ in the same code base.
-1. protects you by not accepting revs tagged with "_alpha_", "_beta_", "_prerelease_", and "_rc_".
+<br>
+
+On the `GitHub Marketplace`, most of the actions that update `pre-commit` hooks run `pre-commit autoupdate` under the hood.  Among them, some stitch together with another action to create pull request.  Unfortunately, a lot of them are not regularly maintained.
+
+<br>
+
+Hence comes **update-pre-commit-action**, which uses [**update-pre-commit**](https://github.com/tagdots/update-pre-commit) with the goal to:
+1. reduce your supply chain risks with `openssf best practices` in our development and operation.
+1. automate your `change management operation` with built-in feature to create `pull request` on **GitHub**.
+1. protect you from using unreliable revs such as `alpha`, `beta`, `prerelease`, and `rc`.
 
 <br>
 
