@@ -1,0 +1,22 @@
+name: count-action-users
+
+on:
+  workflow_dispatch:
+
+jobs:
+  count:
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: write
+
+    steps:
+    - name: Checkout source code
+      uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+
+    - name: Generate user count JSON endpoint
+      uses: cicirello/count-action-users@f1b6ec7600c687bf7dfbbda296f6cabb4d55b98b # v1.0.7
+      with:
+        action-list: tagdots/update-pre-commit-action
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
