@@ -18,5 +18,7 @@ jobs:
       uses: cicirello/count-action-users@f1b6ec7600c687bf7dfbbda296f6cabb4d55b98b # v1.0.7
       with:
         action-list: tagdots/update-pre-commit-action
+        include-logo: false
+        style: flat
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
