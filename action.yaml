@@ -1,12 +1,12 @@
 name: update-pre-commit-action
 
-description: 'Run update-pre-commit to update pre-commit configuration and create pull request'
+description: 'Run update-pre-commit to update pre-commit hooks and optionally create a pull request'
 
 author: tagdots
 
 branding:
-  icon: award
-  color: orange
+  icon: activity
+  color: green
 
 inputs:
   dry-run:
