@@ -34,50 +34,6 @@ jobs:
         retain_days: 5
         keep_minimum_runs: 8
 
-  stale-issues-prs:
-  # https://github.com/actions/stale
-
-    permissions:
-      actions: write
-      contents: write
-      issues: write
-      pull-requests: write
-
-    runs-on: ubuntu-latest
-
-    steps:
-
-    - id: stale-issues-prs
-      uses: actions/stale@5bef64f19d7facfb25b37b414482c7164d639639 # v9.1.0
-      with:
-        stale-issue-message: 'This issue is stale because it has been open 5 days with no activity. Remove stale label or comment or this will be closed in 3 days after stale'
-        days-before-stale: 5
-        days-before-close: 3
-        operations-per-run: 40
-
-  stale-branches:
-  # https://github.com/crs-k/stale-branches
-
-    permissions:
-      issues: write
-      contents: write
-      pull-requests: read
-
-    runs-on: ubuntu-latest
-
-    steps:
-
-    - id: stale-branches
-      uses: crs-k/stale-branches@de68d9358068be991f64ad9058487e2484925d9a # v8.2.1
-      with:
-        # days-before-stale cannot be greater than or equal to days-before-delete
-        branches-filter-regex: '^((?!main|badge))'
-        days-before-stale: 4
-        days-before-delete: 6
-        include-protected-branches: true
-        pr-check: true
-        repo-token: ${{ secrets.GITHUB_TOKEN }}
-
   update-pre-commit:
     runs-on: ubuntu-latest
     permissions:
@@ -100,7 +56,7 @@ jobs:
 
   notify-slack:
     if: always()
-    needs: [stale-workflows, stale-issues-prs, stale-branches, update-pre-commit]
+    needs: [stale-workflows, update-pre-commit]
 
     runs-on: ubuntu-latest
 
@@ -114,7 +70,7 @@ jobs:
       shell: bash
       run: |
         # get overall result from all of the previous jobs
-        if "${{ needs.stale-workflows.result == 'success' && needs.stale-issues-prs.result == 'success' && needs.stale-branches.result == 'success' && needs.update-pre-commit.result == 'success' }}"; then
+        if "${{ needs.stale-workflows.result == 'success' && needs.update-pre-commit.result == 'success' }}"; then
           echo "WORKFLOW_RESULT=:white_check_mark:" >> "$GITHUB_OUTPUT"
         else
           echo "WORKFLOW_RESULT=:no_entry:" >> "$GITHUB_OUTPUT"
@@ -133,7 +89,5 @@ jobs:
               ```
               URL: https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}\n
               Job: stale-workflows   - ${{ needs.stale-workflows.result }}\n
-              Job: stale-issues-prs  - ${{ needs.stale-issues-prs.result }}\n
-              Job: stale-branches    - ${{ needs.stale-branches.result }}\n
               Job: update-pre-commit - ${{ needs.update-pre-commit.result }}
               ```"
