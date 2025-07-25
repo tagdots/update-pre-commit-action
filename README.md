@@ -5,39 +5,34 @@
 [![Code Coverage](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/tagdots/update-pre-commit/refs/heads/badge/coverage.json)](https://github.com/tagdots/update-pre-commit/actions/workflows/cron-coverage.yaml)
 
 
-This action keeps your `pre-commit` hooks up to date and optionally creates pull request.
+This action runs [**update-pre-commit**](https://github.com/tagdots/update-pre-commit) to keep your `pre-commit` hooks up to date and optionally creates pull request.
 
 <br>
 
-**update-pre-commit-action** uses [**update-pre-commit**](https://github.com/tagdots/update-pre-commit) with the goal to:
-1. reduce your supply chain risks with `openssf best practices` in our development and operation.
-1. automate your `change management operation` to optionally create `pull request` on GitHub.
-1. protect you from using unreliable revs such as `alpha`, `beta`, `prerelease`, and `rc`.
+**update-pre-commit**:
+1. reduces your supply chain risks with `openssf best practices` in our software development and operations.
+1. automates your `change management operation` to optionally create `pull request` on GitHub.
+1. protects you from using unreliable revs such as `alpha`, `beta`, `prerelease`, and `rc`.
 
 <br>
 
-## 😎 Roll out 1 2 3
+## 😎 GitHub Action workflow examples
 
-1. use the example workflows below to create your own workflow inside `.github/workflows/`.
-1. merge your code with the new workflow.
-1. done!!
+Use the example workflows below to create your own workflow inside `.github/workflows/`.
 
 <br>
 
-## 🔍 How to use update-pre-commit-action?
-
-### Use Case 1️⃣ - summary descriptions
-**update-pre-commit-action** in the workflow below will:
+### Example 1️⃣ - summary
+**update-pre-commit-action** will:
 
 * run on a scheduled interval - every day at 5:30 pm UTC  (`- cron: '30 17 * * *'`)
 * use GitHub Token with permissions: `contents: write` and `pull-requests: write`
-* use pinned full commit hash from https://github.com/tagdots/update-pre-commit-action/releases
 * update `.pre-commit-config.yaml` when new revs become available (`dry-run: false`)
 * open a pull request when new revs become available (`open-pr: true`)
 
 <br>
 
-### Use Case 1️⃣ - example workflow
+### Example 1️⃣ - workflow
 ```
 name: update-pre-commit-action
 
@@ -65,7 +60,7 @@ jobs:
       id: update-pre-commit
       env:
         GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      uses: tagdots/update-pre-commit-action@2cd407af92c1c9435c6406f4e23657d3ea14dcbb # 1.0.1
+      uses: tagdots/update-pre-commit-action@0da91de0a91c4d24cac35b8576fba69e7abc2365 # 1.0.16
       with:
         file: .pre-commit-config.yaml
         dry-run: false
@@ -74,17 +69,17 @@ jobs:
 
 <br>
 
-### Use Case 2️⃣ - summary descriptions
-**update-pre-commit-action** in the workflow below will:
+### Example 2️⃣ - summary
+**update-pre-commit-action** will:
 
 * run on a scheduled interval - every day at 5:30 pm UTC  (`- cron: '30 17 * * *'`)
-* use pinned full commit hash from https://github.com/tagdots/update-pre-commit-action/releases
+* use GitHub Token with permissions: `contents: read` and `pull-requests: read`
 * update `.pre-commit-config.yaml` when new revs become available (`dry-run: false`)
 * **_NOT_** open a pull request when new revs become available (`open-pr: false`)
 
 <br>
 
-### Use Case 2️⃣ - example workflow
+### Example 2️⃣ - workflow
 ```
 name: update-pre-commit-action
 
@@ -109,7 +104,7 @@ jobs:
       id: update-pre-commit
       env:
         GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      uses: tagdots/update-pre-commit-action@2cd407af92c1c9435c6406f4e23657d3ea14dcbb # 1.0.1
+      uses: tagdots/update-pre-commit-action@0da91de0a91c4d24cac35b8576fba69e7abc2365 # 1.0.16
       with:
         file: .pre-commit-config.yaml
         dry-run: false
