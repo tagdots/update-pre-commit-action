@@ -1,3 +1,13 @@
+## 1.0.19 (2025-07-25)
+
+### Fix
+
+- fix action description add badge-marketplace to cron-tasks
+
+### Refactor
+
+- remove unused cron-tasks
+
 ## 1.0.16 (2025-07-22)
 
 ### Feat
