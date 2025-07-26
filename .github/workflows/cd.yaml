@@ -51,7 +51,6 @@ jobs:
 
     - id: set-tag
       shell: bash
-      # checkov:skip=CKV_GHA_2:Ensure run commands are not vulnerable to shell injection
       env:
         GH_TOKEN: ${{ steps.generate-token.outputs.token }}
       run: |

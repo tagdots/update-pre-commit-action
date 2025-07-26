@@ -1,6 +1,6 @@
 name: update-pre-commit-action
 
-description: 'Run update-pre-commit to update pre-commit hooks and optionally create a pull request'
+description: 'Run update-pre-commit to keep pre-commit hooks up to date and optionally create pull request'
 
 author: tagdots
 

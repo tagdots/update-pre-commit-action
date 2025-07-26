@@ -15,17 +15,30 @@ permissions:
     pull-requests: read
 
 jobs:
-  stale-workflows:
-  # https://github.com/Mattraks/delete-workflow-runs
+  badge-marketplace: # https://github.com/tagdots/setup-badge-action
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: write
+
+    steps:
+    - id: marketplace-badge
+      uses: tagdots/setup-badge-action@663d7a5382b8300caa4492de16e85aa7e4667ef0 # 1.0.3
+      with:
+        badge-name: marketplace
+        badge-url: https://github.com/marketplace/actions/update-pre-commit-action
+        label: Marketplace
+        message: update-pre-commit-action
+        message-color: FF6360
+
+  stale-workflows: # https://github.com/Mattraks/delete-workflow-runs
+    runs-on: ubuntu-latest
 
     permissions:
       contents: read
       actions: write
 
-    runs-on: ubuntu-latest
-
     steps:
-
     - id: stale-workflows
       uses: Mattraks/delete-workflow-runs@39f0bbed25d76b34de5594dceab824811479e5de # v2.0.6
       with:
@@ -34,8 +47,9 @@ jobs:
         retain_days: 5
         keep_minimum_runs: 8
 
-  update-pre-commit:
+  update-pre-commit: # https://github.com/tagdots/update-pre-commit-action
     runs-on: ubuntu-latest
+
     permissions:
       contents: write
       pull-requests: write
@@ -43,12 +57,9 @@ jobs:
     steps:
     - name: Run update-pre-commit
       id: update-pre-commit
-
       env:
         GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
       uses: tagdots/update-pre-commit-action@2cd407af92c1c9435c6406f4e23657d3ea14dcbb # 1.0.1
-
       with:
         file: .pre-commit-config.yaml
         dry-run: false
@@ -56,7 +67,7 @@ jobs:
 
   notify-slack:
     if: always()
-    needs: [stale-workflows, update-pre-commit]
+    needs: [badge-marketplace, stale-workflows, update-pre-commit]
 
     runs-on: ubuntu-latest
 
@@ -70,7 +81,7 @@ jobs:
       shell: bash
       run: |
         # get overall result from all of the previous jobs
-        if "${{ needs.stale-workflows.result == 'success' && needs.update-pre-commit.result == 'success' }}"; then
+        if "${{ needs.badge-marketplace.result == 'success' && needs.stale-workflows.result == 'success' && needs.update-pre-commit.result == 'success' }}"; then
           echo "WORKFLOW_RESULT=:white_check_mark:" >> "$GITHUB_OUTPUT"
         else
           echo "WORKFLOW_RESULT=:no_entry:" >> "$GITHUB_OUTPUT"
@@ -88,6 +99,7 @@ jobs:
               *Workflow : ${{ github.workflow }} ${{ steps.get-overall-jobs-results.outputs.WORKFLOW_RESULT }}*
               ```
               URL: https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}\n
+              Job: badge-marketplace - ${{ needs.badge-marketplace.result }}\n
               Job: stale-workflows   - ${{ needs.stale-workflows.result }}\n
               Job: update-pre-commit - ${{ needs.update-pre-commit.result }}
               ```"
