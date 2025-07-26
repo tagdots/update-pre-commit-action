@@ -11,9 +11,9 @@ This action runs [**update-pre-commit**](https://github.com/tagdots/update-pre-c
 <br>
 
 **update-pre-commit**:
-1. reduces your supply chain risks with `openssf best practices` in our software development and operations.
+1. reduces your supply chain risks with `openssf best practices` in our development and operations.
 1. automates your `change management operation` to optionally create `pull request` on GitHub.
-1. protects you from using unreliable revs such as `alpha`, `beta`, `prerelease`, and `rc`.
+1. protects you against unreliable revs such as `alpha`, `beta`, `prerelease`, and `rc`.
 
 <br>
 
@@ -24,12 +24,12 @@ Use the example workflows below to create your own workflow inside `.github/work
 <br>
 
 ### Example 1️⃣ - summary
-**update-pre-commit-action** will:
+**update-pre-commit-action**:
 
-* run on a scheduled interval - every day at 5:30 pm UTC  (`- cron: '30 17 * * *'`)
-* use GitHub Token with permissions: `contents: write` and `pull-requests: write`
-* update `.pre-commit-config.yaml` when new revs become available (`dry-run: false`)
-* open a pull request when new revs become available (`open-pr: true`)
+* runs on a scheduled interval - every day at 5:30 pm UTC  (`- cron: '30 17 * * *'`)
+* uses GitHub Token with permissions: `contents: write` and `pull-requests: write`
+* updates `.pre-commit-config.yaml` when new revs become available (`dry-run: false`)
+* opens a pull request after update to `.pre-commit-config.yaml` (`open-pr: true`)
 
 <br>
 
@@ -61,7 +61,7 @@ jobs:
       id: update-pre-commit
       env:
         GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      uses: tagdots/update-pre-commit-action@0da91de0a91c4d24cac35b8576fba69e7abc2365 # 1.0.16
+      uses: tagdots/update-pre-commit-action@939e74b030e11eeb313414e9488b1b233dc32f84 # 1.0.19
       with:
         file: .pre-commit-config.yaml
         dry-run: false
@@ -71,12 +71,12 @@ jobs:
 <br>
 
 ### Example 2️⃣ - summary
-**update-pre-commit-action** will:
+**update-pre-commit-action**:
 
-* run on a scheduled interval - every day at 5:30 pm UTC  (`- cron: '30 17 * * *'`)
-* use GitHub Token with permissions: `contents: read` and `pull-requests: read`
-* update `.pre-commit-config.yaml` when new revs become available (`dry-run: false`)
-* **_NOT_** open a pull request when new revs become available (`open-pr: false`)
+* runs on a scheduled interval - every day at 5:30 pm UTC  (`- cron: '30 17 * * *'`)
+* uses GitHub Token with permissions: `contents: read` and `pull-requests: read`
+* updates `.pre-commit-config.yaml` when new revs become available (`dry-run: false`)
+* **_Does Not_** open a pull request (`open-pr: false`)
 
 <br>
 
@@ -105,7 +105,7 @@ jobs:
       id: update-pre-commit
       env:
         GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      uses: tagdots/update-pre-commit-action@0da91de0a91c4d24cac35b8576fba69e7abc2365 # 1.0.16
+      uses: tagdots/update-pre-commit-action@939e74b030e11eeb313414e9488b1b233dc32f84 # 1.0.19
       with:
         file: .pre-commit-config.yaml
         dry-run: false
