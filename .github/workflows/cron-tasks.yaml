@@ -23,7 +23,7 @@ jobs:
 
     steps:
     - id: marketplace-badge
-      uses: tagdots/setup-badge-action@663d7a5382b8300caa4492de16e85aa7e4667ef0 # 1.0.3
+      uses: tagdots/setup-badge-action@d450907c2ddc3c94b5eaed20f521eb4846475937 # 1.0.4
       with:
         badge-name: marketplace
         badge-url: https://github.com/marketplace/actions/update-pre-commit-action
@@ -59,7 +59,7 @@ jobs:
       id: update-pre-commit
       env:
         GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      uses: tagdots/update-pre-commit-action@2cd407af92c1c9435c6406f4e23657d3ea14dcbb # 1.0.1
+      uses: tagdots/update-pre-commit-action@c1b9f2cb98f920a06a99172d09af349bf783f3d9 # 1.0.20
       with:
         file: .pre-commit-config.yaml
         dry-run: false
