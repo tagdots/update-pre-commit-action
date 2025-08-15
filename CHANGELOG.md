@@ -1,3 +1,9 @@
+## 1.0.27 (2025-08-15)
+
+### Fix
+
+- replace the cron task that deletes workflow runs
+
 ## 1.0.20 (2025-07-26)
 
 ## 1.0.19 (2025-07-25)
