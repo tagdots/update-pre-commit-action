@@ -8,7 +8,7 @@ on:  # yamllint disable-line rule:truthy
   workflow_dispatch:
 
 env:
-  PYTHON_VERSION: '3.12.x'
+  PYTHON_VERSION: '3.14.x'
 
 permissions:
   contents: read
