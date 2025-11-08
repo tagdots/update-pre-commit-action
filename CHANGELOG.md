@@ -1,3 +1,14 @@
+## 1.0.28 (2025-11-08)
+
+### Fix
+
+- upgrade to use Python 3.14
+- update cron-tasks - delete-workflow-runs and delete-branches
+- add "fail-on-severity: low" to the configuration to allow low level alert
+- resolve stuck version comment with codeql-action at v3.29.5
+- add stale-issues-prs and stale-branches
+- resolve minor typos in actions
+
 ## 1.0.27 (2025-08-15)
 
 ### Fix
