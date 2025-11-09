@@ -61,7 +61,7 @@ jobs:
       id: update-pre-commit
       env:
         GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      uses: tagdots/update-pre-commit-action@939e74b030e11eeb313414e9488b1b233dc32f84 # 1.0.19
+      uses: tagdots/update-pre-commit-action@a80688d12cf761973e340674bcf552af366afba5 # 1.0.28
       with:
         file: .pre-commit-config.yaml
         dry-run: false
@@ -105,7 +105,7 @@ jobs:
       id: update-pre-commit
       env:
         GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      uses: tagdots/update-pre-commit-action@939e74b030e11eeb313414e9488b1b233dc32f84 # 1.0.19
+      uses: tagdots/update-pre-commit-action@a80688d12cf761973e340674bcf552af366afba5 # 1.0.28
       with:
         file: .pre-commit-config.yaml
         dry-run: false
