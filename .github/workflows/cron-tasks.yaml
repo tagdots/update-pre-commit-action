@@ -9,6 +9,7 @@ on:
 
 env:
   PYTHON_VERSION: "3.14.x"
+  UV_VERSION: "0.12.3"
 
 permissions:
   actions: read
@@ -17,23 +18,6 @@ permissions:
   pull-requests: read
 
 jobs:
-  badge-marketplace:
-    runs-on: ubuntu-latest
-
-    permissions:
-      contents: write
-
-    steps:
-      - name: Run setup-badge-action # https://github.com/tagdots/setup-badge-action
-        id: badge-marketplace
-        uses: tagdots/setup-badge-action@294661aa1f149b59dfe1cd187539eca7f8f0fabf # 1.0.18
-        with:
-          badge-name: marketplace
-          badge-url: https://github.com/marketplace/actions/update-pre-commit-action
-          label: Marketplace
-          message: update-pre-commit-action
-          message-color: FF6360
-
   stale-workflow-runs:
     runs-on: ubuntu-latest
 
@@ -68,7 +52,7 @@ jobs:
       pull-requests: write
 
     steps:
-      - name: Run stale-issues-prs # https://github.com/actions/stale
+      - name: Run stale # https://github.com/actions/stale
         id: stale-issues-prs
         uses: actions/stale@4391f3da665fdf50b6810c1a66712fb9ba21aa93 # v11.0.0
         with:
@@ -118,7 +102,6 @@ jobs:
     if: always()
     needs:
       [
-        badge-marketplace,
         stale-workflow-runs,
         stale-issues-prs,
         stale-branches,
@@ -134,7 +117,11 @@ jobs:
         id: get-overall-jobs-results
         shell: bash
         run: |
-          if "${{ needs.stale-workflow-runs.result == 'success' && needs.stale-issues-prs.result == 'success' && needs.stale-branches.result == 'success' && needs.update-pre-commit.result == 'success' }}"; then
+          if ${{
+            needs.stale-workflow-runs.result == 'success'
+            && needs.stale-issues-prs.result == 'success'
+            && needs.stale-branches.result == 'success'
+            && needs.update-pre-commit.result == 'success' }}; then
             echo "WORKFLOW_RESULT=:white_check_mark:" >> "$GITHUB_OUTPUT"
           else
             echo "WORKFLOW_RESULT=:no_entry:" >> "$GITHUB_OUTPUT"
@@ -152,7 +139,6 @@ jobs:
               *Workflow : ${{ github.workflow }} ${{ steps.get-overall-jobs-results.outputs.WORKFLOW_RESULT }}*
               ```
               URL: https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}\n
-              Job: badge-marketplace   - ${{ needs.badge-marketplace.result }}\n
               Job: stale-workflow-runs - ${{ needs.stale-workflow-runs.result }}\n
               Job: stale-issues-prs    - ${{ needs.stale-issues-prs.result }}\n
               Job: stale-branches      - ${{ needs.stale-branches.result }}\n
